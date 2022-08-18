@@ -1,0 +1,1278 @@
+--------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\Anzony\Documents\GitHub\Applied_Econometrics\PS1\output/tp1-2022
+> -08-18_1.log
+  log type:  text
+ opened on:  18 Aug 2022, 01:11:01
+
+.         local today "`c(current_time)'"
+
+.         local curdir "`c(pwd)'"
+
+.         local newn = c(N) + 1
+
+. 
+. 
+. *--------------------------------------------------
+. * 2 Desarrollo de Preguntas
+. *--------------------------------------------------
+. 
+. use "input/data_russia", clear
+
+. 
+. * Pregunta 1: Utilizando los comandos replace, split, destring y encode, emprolijen 
+> la base:
+. 
+. 
+. * Convirtiendo las variables en formato string a numérico 
+. // Inspeccionando variables alfanumericas
+. tab econrk
+
+   Economic |
+Rank Ladder |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         .b |         28        0.99        0.99
+          1 |        300       10.65       11.64
+          2 |        404       14.34       25.98
+          3 |        552       19.59       45.56
+          4 |        566       20.09       65.65
+          5 |        641       22.75       88.40
+          6 |        155        5.50       93.90
+          7 |         35        1.24       95.14
+          8 |          8        0.28       95.42
+          9 |          1        0.04       95.46
+       five |         31        1.10       96.56
+       four |         30        1.06       97.62
+        one |         14        0.50       98.12
+      three |         31        1.10       99.22
+        two |         22        0.78      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. tab powrnk
+
+ Power Rank |
+     Ladder |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         .b |         87        3.09        3.09
+          1 |        652       23.14       26.22
+          2 |        462       16.39       42.62
+          3 |        508       18.03       60.65
+          4 |        344       12.21       72.85
+          5 |        447       15.86       88.72
+          6 |        122        4.33       93.04
+          7 |         56        1.99       95.03
+          8 |         11        0.39       95.42
+          9 |          2        0.07       95.49
+       five |         21        0.75       96.24
+       four |         15        0.53       96.77
+        one |         34        1.21       97.98
+      three |         31        1.10       99.08
+        two |         26        0.92      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. tab resprk
+
+    Respect |
+Rank Ladder |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         .b |        119        4.22        4.22
+         .c |          5        0.18        4.40
+         .d |          5        0.18        4.58
+          1 |         45        1.60        6.17
+          2 |         66        2.34        8.52
+          3 |        127        4.51       13.02
+          4 |        208        7.38       20.40
+          5 |        676       23.99       44.39
+          6 |        431       15.29       59.69
+          7 |        499       17.71       77.40
+          8 |        345       12.24       89.64
+          9 |        235        8.34       97.98
+       five |         31        1.10       99.08
+       four |         11        0.39       99.47
+        one |          2        0.07       99.54
+      three |          8        0.28       99.82
+        two |          5        0.18      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. tab satlif
+
+Satisfactio |
+n with Life |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          . |         28        0.99        0.99
+          1 |        563       19.98       20.97
+          2 |        944       33.50       54.47
+          3 |        599       21.26       75.73
+          4 |        418       14.83       90.56
+          5 |        141        5.00       95.56
+       five |          7        0.25       95.81
+       four |         21        0.75       96.56
+        one |         27        0.96       97.52
+      three |         18        0.64       98.15
+        two |         52        1.85      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. tab wtchng
+
+     Weight |
+change last |
+       year |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         .b |         93        3.30        3.30
+         .c |          1        0.04        3.34
+         .d |          3        0.11        3.44
+          1 |        667       23.67       27.11
+          2 |        839       29.77       56.88
+          3 |      1,069       37.93       94.82
+        one |         32        1.14       95.95
+      three |         65        2.31       98.26
+        two |         49        1.74      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. tab evalhl
+
+     Health |
+Self-Evalua |
+       tion |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          . |          5        0.18        0.18
+          1 |        123        4.36        4.54
+          2 |        362       12.85       17.39
+          3 |      1,534       54.44       71.82
+          4 |        619       21.97       93.79
+          5 |         23        0.82       94.61
+       five |          1        0.04       94.64
+       four |         44        1.56       96.20
+        one |          4        0.14       96.34
+      three |         83        2.95       99.29
+        two |         20        0.71      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. tab operat
+
+        Had |
+  operation |
+  last year |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |      2,691       95.49       95.49
+          1 |        121        4.29       99.79
+        one |          6        0.21      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. tab hattac
+
+   Ever Had |
+      Heart |
+     Attack |      Freq.     Percent        Cum.
+------------+-----------------------------------
+         .b |          2        0.07        0.07
+         .d |          4        0.14        0.21
+          0 |      2,718       96.45       96.66
+          1 |         90        3.19       99.86
+        one |          4        0.14      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. tab geo
+
+ Geographic |
+       Area |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          1 |        449       15.93       15.93
+          2 |        593       21.04       36.98
+          3 |      1,647       58.45       95.42
+        one |         22        0.78       96.20
+      three |         77        2.73       98.94
+        two |         30        1.06      100.00
+------------+-----------------------------------
+      Total |      2,818      100.00
+
+. 
+. // Replace comma with dot
+. split hipsiz, parse("") g(hipsiz)
+variables created as string: 
+hipsiz1  hipsiz2  hipsiz3
+
+. replace hipsiz = hipsiz3
+(2,818 real changes made)
+
+. replace hipsiz =  subinstr( hipsiz, ",", ".", . )
+(521 real changes made)
+
+. drop hipsiz1 hipsiz2 hipsiz3
+
+. 
+. split totexpr,  g(totexpr)
+variables created as string: 
+totexpr1  totexpr2  totexpr3
+
+. replace totexpr = totexpr3
+(2,818 real changes made)
+
+. replace totexpr =  subinstr( totexpr, ",", ".", . )
+(2,798 real changes made)
+
+. drop totexpr1 totexpr2 totexpr3
+
+. 
+. replace tincm_r =  subinstr( tincm_r, ",", ".", . )
+(2,752 real changes made)
+
+. 
+. // Reemplazar characteres especificos
+. foreach x of varlist sex econrk obese powrnk resprk satlif wtchng evalhl operat hatt
+> ac smokes tincm_r hipsiz totexpr geo{
+  2.         replace `x' = "1" if (`x'== "one" )
+  3.         replace `x' = "2" if (`x'== "two" )
+  4.         replace `x' = "3" if (`x'== "three" )
+  5.         replace `x' = "4" if (`x'== "four" )
+  6.         replace `x' = "5" if (`x'== "five" )
+  7.         replace `x' = "." if (`x'== ".b" ".c" ".d" )
+  8.         replace `x' = "." if (`x'== "," )
+  9.         replace `x' = "1" if (`x'== "Smokes" )
+ 10.         replace `x' = "0" if (`x'== "female" )
+ 11.         replace `x' = "1" if (`x'== "male" )
+ 12.         replace `x' = "0" if (`x'== "This person is not obese" )
+ 13.         replace `x' = "1" if (`x'== "This person is obese" )
+ 14. }
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(1,646 real changes made)
+(1,172 real changes made)
+(0 real changes made)
+(0 real changes made)
+(14 real changes made)
+(22 real changes made)
+(31 real changes made)
+(30 real changes made)
+(31 real changes made)
+(28 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(2,102 real changes made)
+(513 real changes made)
+(34 real changes made)
+(26 real changes made)
+(31 real changes made)
+(15 real changes made)
+(21 real changes made)
+(87 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(2 real changes made)
+(5 real changes made)
+(8 real changes made)
+(11 real changes made)
+(31 real changes made)
+(119 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(27 real changes made)
+(52 real changes made)
+(18 real changes made)
+(21 real changes made)
+(7 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(32 real changes made)
+(49 real changes made)
+(65 real changes made)
+(0 real changes made)
+(0 real changes made)
+(93 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(4 real changes made)
+(20 real changes made)
+(83 real changes made)
+(44 real changes made)
+(1 real change made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(6 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(4 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(2 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(938 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(22 real changes made)
+(30 real changes made)
+(77 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+(0 real changes made)
+
+. 
+. // Convertir variables string a nuemerico
+. ds, has(type string)
+sex      satlif   monage   hosl3m   hattac   hipsiz   geo      ortho    marsta4
+econrk   satecc   obese    wtchng   smokes   hhpres   work0    marsta1
+powrnk   highsc   cmedin   evalhl   alclmo   totexpr  work1    marsta2
+resprk   belief   hprblm   operat   waistc   tincm_r  work2    marsta3
+
+. foreach var in `r(varlist)' {
+  2.     destring `var',  replace
+  3. }
+sex: all characters numeric; replaced as byte
+econrk: all characters numeric; replaced as byte
+(28 missing values generated)
+powrnk: all characters numeric; replaced as byte
+(87 missing values generated)
+resprk: all characters numeric; replaced as byte
+(129 missing values generated)
+satlif: all characters numeric; replaced as byte
+(28 missing values generated)
+satecc: all characters numeric; replaced as byte
+(12 missing values generated)
+highsc: all characters numeric; replaced as byte
+(8 missing values generated)
+belief: all characters numeric; replaced as byte
+(38 missing values generated)
+monage: all characters numeric; replaced as double
+(203 missing values generated)
+obese: all characters numeric; replaced as byte
+(203 missing values generated)
+cmedin: all characters numeric; replaced as byte
+(6 missing values generated)
+hprblm: all characters numeric; replaced as byte
+hosl3m: all characters numeric; replaced as byte
+(2 missing values generated)
+wtchng: all characters numeric; replaced as byte
+(97 missing values generated)
+evalhl: all characters numeric; replaced as byte
+(5 missing values generated)
+operat: all characters numeric; replaced as byte
+hattac: all characters numeric; replaced as byte
+(6 missing values generated)
+smokes: all characters numeric; replaced as byte
+alclmo: all characters numeric; replaced as byte
+(2 missing values generated)
+waistc: all characters numeric; replaced as double
+(21 missing values generated)
+hipsiz: all characters numeric; replaced as double
+(21 missing values generated)
+hhpres: all characters numeric; replaced as byte
+(12 missing values generated)
+totexpr: all characters numeric; replaced as double
+(187 missing values generated)
+tincm_r: all characters numeric; replaced as double
+(187 missing values generated)
+geo: all characters numeric; replaced as byte
+work0: all characters numeric; replaced as byte
+work1: all characters numeric; replaced as byte
+work2: all characters numeric; replaced as byte
+ortho: all characters numeric; replaced as byte
+marsta1: all characters numeric; replaced as byte
+marsta2: all characters numeric; replaced as byte
+marsta3: all characters numeric; replaced as byte
+marsta4: all characters numeric; replaced as byte
+
+. 
+. // Checkeamos que no haya variables string
+. ds, has(type string)
+
+. 
+. // Checkeamos unicidad de las observaciones
+. isid id
+
+. 
+. 
+. *Ejercicio 2: 
+. 
+. // ssc install mdesc // instalamos 
+. ds, has(type numeric)
+id       powrnk   belief   hosl3m   hattac   hipsiz   work0    marsta2
+site     resprk   monage   htself   smokes   hhpres   work1    marsta3
+inwgt    satlif   obese    wtchng   alclmo   totexpr  work2    marsta4
+sex      satecc   cmedin   evalhl   height   tincm_r  ortho
+econrk   highsc   hprblm   operat   waistc   geo      marsta1
+
+. local var_miss 
+
+. foreach var in `r(varlist)' {
+  2.         mdesc `var'
+  3.         if `r(percent)' > 5{
+  4.                 local var_miss `var_miss' `var'
+  5.         display "`var_miss'"
+  6.         }
+  7. }
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+             id |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+           site |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+          inwgt |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+            sex |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         econrk |          28          2,818           0.99
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         powrnk |          87          2,818           3.09
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         resprk |         129          2,818           4.58
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         satlif |          28          2,818           0.99
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         satecc |          12          2,818           0.43
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         highsc |           8          2,818           0.28
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         belief |          38          2,818           1.35
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         monage |         203          2,818           7.20
+----------------+-----------------------------------------------
+monage
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+          obese |         203          2,818           7.20
+----------------+-----------------------------------------------
+monage obese
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         cmedin |           6          2,818           0.21
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         hprblm |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         hosl3m |           2          2,818           0.07
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         htself |         185          2,818           6.56
+----------------+-----------------------------------------------
+monage obese htself
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         wtchng |          97          2,818           3.44
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         evalhl |           5          2,818           0.18
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         operat |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         hattac |           6          2,818           0.21
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         smokes |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         alclmo |           2          2,818           0.07
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         height |          28          2,818           0.99
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         waistc |          21          2,818           0.75
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         hipsiz |          21          2,818           0.75
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         hhpres |          12          2,818           0.43
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+        totexpr |         187          2,818           6.64
+----------------+-----------------------------------------------
+monage obese htself totexpr
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+        tincm_r |         187          2,818           6.64
+----------------+-----------------------------------------------
+monage obese htself totexpr tincm_r
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+            geo |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+          work0 |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+          work1 |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+          work2 |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+          ortho |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+        marsta1 |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+        marsta2 |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+        marsta3 |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+        marsta4 |           0          2,818           0.00
+----------------+-----------------------------------------------
+
+. mdesc `var_miss'
+
+    Variable    |     Missing          Total     Percent Missing
+----------------+-----------------------------------------------
+         monage |         203          2,818           7.20
+          obese |         203          2,818           7.20
+         htself |         185          2,818           6.56
+        totexpr |         187          2,818           6.64
+        tincm_r |         187          2,818           6.64
+----------------+-----------------------------------------------
+
+. 
+. * Ejercicio 3: 
+. 
+. // Identificando valores negativos
+. ds, has(type numeric)
+id       powrnk   belief   hosl3m   hattac   hipsiz   work0    marsta2
+site     resprk   monage   htself   smokes   hhpres   work1    marsta3
+inwgt    satlif   obese    wtchng   alclmo   totexpr  work2    marsta4
+sex      satecc   cmedin   evalhl   height   tincm_r  ortho
+econrk   highsc   hprblm   operat   waistc   geo      marsta1
+
+. local varegative 
+
+. foreach var in `r(varlist)' {
+  2.         summ `var' if `var'<0
+  3.         if `r(N)' > 0  {
+  4.                 local varegative `varegative' `var'
+  5.         }
+  6. } // observamos variables numéricas con valores negativos. 
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+          id |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+        site |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       inwgt |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         sex |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      econrk |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      powrnk |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      resprk |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      satlif |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      satecc |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      highsc |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      belief |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      monage |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       obese |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      cmedin |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      hprblm |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      hosl3m |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      htself |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      wtchng |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      evalhl |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      operat |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      hattac |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      smokes |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      alclmo |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      height |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      waistc |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      hipsiz |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      hhpres |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     totexpr |         62   -8452.422    8819.796  -57376.87    -232.41
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     tincm_r |          4      -183.4           0     -183.4     -183.4
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         geo |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       work0 |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       work1 |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       work2 |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+       ortho |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     marsta1 |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     marsta2 |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     marsta3 |          0
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     marsta4 |          0
+
+. // Variables con valores negativos
+. summ `varegative'
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     totexpr |      2,631    7407.824     9447.94  -57376.87   128868.8
+     tincm_r |      2,631     6051.82    6073.934     -183.4   113370.4
+
+. 
+. // Summary valores negativos
+. ds, has(type numeric)
+id       powrnk   belief   hosl3m   hattac   hipsiz   work0    marsta2
+site     resprk   monage   htself   smokes   hhpres   work1    marsta3
+inwgt    satlif   obese    wtchng   alclmo   totexpr  work2    marsta4
+sex      satecc   cmedin   evalhl   height   tincm_r  ortho
+econrk   highsc   hprblm   operat   waistc   geo      marsta1
+
+. foreach var in `varegative' {
+  2.         display "Variable :===> `var'"
+  3.         replace `var'=. if(`var'<0)
+  4. } // reemplazamos 
+Variable :===> totexpr
+(62 real changes made, 62 to missing)
+Variable :===> tincm_r
+(4 real changes made, 4 to missing)
+
+. /*
+> Las variables cuyas observaciones fueron reemplazdas 
+> por missing son imposibles de tener valores negativos dado la descripción
+> de la variable.
+> totexpr : HH Expenditures Real 
+> tincm_r : HH Income Real 
+> Cabe especificar que no tenemos variables con valores superlativos
+> que por lo general suelen representar valores missing (eg. 99999).
+> */
+. 
+. 
+. 
+. * Ejercicio 4: 
+. 
+. order id site sex
+
+. gsort -totexpr
+
+. 
+. * Ejercicio 5: 
+. 
+. foreach var of varlist sex monage satlif waistc hipsiz totexpr {
+  2.         summarize `var'
+  3. }
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         sex |      2,818    .4158978    .4929635          0          1
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      monage |      2,615    556.3376    213.2852        216       1207
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      satlif |      2,790    2.483513    1.142852          1          5
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      waistc |      2,797    84.62252    13.96642         29        168
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+      hipsiz |      2,797    100.7892    11.96177         34        180
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+     totexpr |      2,569    7790.593    9129.685     147.83   128868.8
+
+. 
+. label variable sex "Sexo"
+
+. label variable monage "Edad en meses"
+
+. label variable satlif "Satisfacción con la vida"
+
+. label variable waistc "Circunferencia de la cintura"
+
+. label variable hipsiz "Circunferencia de la cadera"
+
+. label variable totexpr "Gasto real"
+
+. 
+. // exportando a word
+. estpost summarize sex monage satlif waistc hipsiz totexpr, listwise
+
+             |  e(count)   e(sum_w)    e(mean)     e(Var)      e(sd)     e(min) 
+-------------+------------------------------------------------------------------
+         sex |      2361       2361   .4180432   .2433862   .4933418          0 
+      monage |      2361       2361   556.1557   45658.51   213.6785        216 
+      satlif |      2361       2361   2.449386   1.240763   1.113896          1 
+      waistc |      2361       2361   85.63537   183.5193   13.54693         37 
+      hipsiz |      2361       2361   101.4756   132.3282    11.5034         40 
+     totexpr |      2361       2361   7656.016   7.95e+07   8914.258     147.83 
+
+             |    e(max)     e(sum) 
+-------------+----------------------
+         sex |         1        987 
+      monage |      1207    1313084 
+      satlif |         5       5783 
+      waistc |       168   202185.1 
+      hipsiz |       180   239583.9 
+     totexpr |  128868.8   1.81e+07 
+
+. 
+. #delimit ;
+delimiter now ;
+.         esttab using "output/tables/Table1.tex", replace cells("mean sd min max") 
+>         collabels("Mean" "SD" "Min" "Max" ) 
+>         nomtitle nonumber label note("R");
+(output written to output/tables/Table1.tex)
+
+. #delimit cr
+delimiter now cr
+. 
+. * Ejercicio 6: 
+. 
+. #delimit ;
+delimiter now ;
+.         twoway (kdensity hipsiz if sex==1) ||   
+>         (kdensity hipsiz if sex==0), legend( label(1 "Hombre") label(2 "Mujer") )
+>         title("Distribución de la Circunferencia de la Cadera" ) 
+>         ytitle("Densidad") xtitle( "" ) ;
+
+.         graph export "output/figures/hipsiz_histogram_menvswomen.png", replace ;
+(file output/figures/hipsiz_histogram_menvswomen.png written in PNG format)
+
+. #delimit cr
+delimiter now cr
+. 
+. ttest hipsiz, by(sex)
+
+Two-sample t test with equal variances
+------------------------------------------------------------------------------
+   Group |     Obs        Mean    Std. Err.   Std. Dev.   [95% Conf. Interval]
+---------+--------------------------------------------------------------------
+       0 |   1,637    102.9928    .3139317    12.70163     102.377    103.6085
+       1 |   1,160    97.67957     .294948    10.04557    97.10088    98.25826
+---------+--------------------------------------------------------------------
+combined |   2,797    100.7892    .2261775    11.96177    100.3457    101.2327
+---------+--------------------------------------------------------------------
+    diff |            5.313223    .4480286                4.434722    6.191723
+------------------------------------------------------------------------------
+    diff = mean(0) - mean(1)                                      t =  11.8591
+Ho: diff = 0                                     degrees of freedom =     2795
+
+    Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = 1.0000         Pr(|T| > |t|) = 0.0000          Pr(T > t) = 0.0000
+
+. eststo test1: estpost ttest hipsiz, by( sex )
+
+             |      e(b)   e(count)      e(se)       e(t)    e(df_t)     e(p_l) 
+-------------+------------------------------------------------------------------
+      hipsiz |  5.313223       2797   .4480286   11.85911       2795          1 
+
+             |      e(p)     e(p_u)     e(N_1)    e(mu_1)     e(N_2)    e(mu_2) 
+-------------+------------------------------------------------------------------
+      hipsiz |  1.10e-31   5.48e-32       1637   102.9928       1160   97.67957 
+
+. 
+. #delimit ;
+delimiter now ;
+.         global note_nv 
+>                 " \item Note: El P-value responde a la Ha: diff > 0. Siendo diff 
+>                 la diferencia de medias entre mujeres y hombres.";
+
+.     esttab test1
+>             using "output/tables/ttest1.tex", replace 
+>             cell(        b( pattern( 1 ) star pvalue( p_u ) fmt(4))
+>                         se( pattern(1 ) par fmt(2) ) ) 
+>             starlevels(\sym{*} 0.10 \sym{**} 0.05 \sym{***} 0.01)  
+>             varlabels( 
+>                 hipsiz "Circunferencia de la Cadera"  ) 
+>             mtitle("Sample Completo") 
+>             collabels( none ) 
+>             prehead( "\begin{sidewaystable}[htbp] \fontsize{10}{6}\selectfont \cente
+> ring \protect 
+>                                 \captionsetup{justification=centering} 
+>                                 \caption{ Test de Diferencia de Medias}
+>                                 \label{ttes}
+>                                 { \begin{threeparttable}\begin{tabular}{l*{1}{c}}" \
+> toprule ) 
+>             posthead(\hline)
+>                 postfoot(\hline \hline "\multicolumn{2}{l}{\footnotesize Errores sta
+> ndard en parentesis.}\\" 
+>                                 "\multicolumn{2}{l}{\footnotesize \sym{*} \(p<0.10\)
+> , 
+>                                 \sym{**} \(p<0.05\), \sym{***} \(p<0.01\)}\\" \end{t
+> abular}  
+>                 \begin{tablenotes} 
+>                 \begin{footnotesize} 
+>                 ${note_nv} 
+>                 \end{footnotesize} 
+>                         "\end{tablenotes} 
+>                         \end{threeparttable} 
+>                         \end{sidewaystable}") ;
+(output written to output/tables/ttest1.tex)
+
+. #delimit cr
+delimiter now cr
+. 
+. * Ejercicio 7: 
+. 
+. reg satlif  htself totexpr i.econrk i.cmedin i.work1
+
+      Source |       SS           df       MS      Number of obs   =     2,359
+-------------+----------------------------------   F(12, 2346)     =     38.35
+       Model |   487.72665        12  40.6438875   Prob > F        =    0.0000
+    Residual |  2486.31404     2,346  1.05980991   R-squared       =    0.1640
+-------------+----------------------------------   Adj R-squared   =    0.1597
+       Total |   2974.0407     2,358   1.2612556   Root MSE        =    1.0295
+
+------------------------------------------------------------------------------
+      satlif |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      htself |   .0085321   .0022146     3.85   0.000     .0041892    .0128749
+     totexpr |    .000015   2.34e-06     6.43   0.000     .0000105    .0000196
+             |
+      econrk |
+          2  |   .3078743   .0843755     3.65   0.000      .142416    .4733326
+          3  |   .4763125   .0792099     6.01   0.000     .3209839    .6316412
+          4  |   .8139538   .0796003    10.23   0.000     .6578595     .970048
+          5  |   1.031826   .0783013    13.18   0.000     .8782793    1.185373
+          6  |   1.344014   .1116634    12.04   0.000     1.125044    1.562983
+          7  |   1.210904   .1995012     6.07   0.000     .8196869    1.602121
+          8  |   .9238733   .3988297     2.32   0.021     .1417779    1.705969
+          9  |   2.931666    1.03243     2.84   0.005      .907097    4.956236
+             |
+    1.cmedin |    .200576   .0680198     2.95   0.003     .0671908    .3339612
+     1.work1 |   .3157904   .1475322     2.14   0.032     .0264833    .6050975
+       _cons |   .0815852   .3796006     0.21   0.830    -.6628024    .8259728
+------------------------------------------------------------------------------
+
+. est store reg1
+
+. reg satlif  htself totexpr i.marsta3 i.econrk i.cmedin i.work1 i.ortho
+
+      Source |       SS           df       MS      Number of obs   =     2,359
+-------------+----------------------------------   F(14, 2344)     =     33.25
+       Model |  492.780363        14  35.1985974   Prob > F        =    0.0000
+    Residual |  2481.26033     2,344  1.05855816   R-squared       =    0.1657
+-------------+----------------------------------   Adj R-squared   =    0.1607
+       Total |   2974.0407     2,358   1.2612556   Root MSE        =    1.0289
+
+------------------------------------------------------------------------------
+      satlif |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+      htself |   .0080736   .0022234     3.63   0.000     .0037135    .0124337
+     totexpr |   .0000148   2.34e-06     6.32   0.000     .0000102    .0000194
+   1.marsta3 |   -.102116   .0767634    -1.33   0.184    -.2526472    .0484151
+             |
+      econrk |
+          2  |   .3056092   .0843347     3.62   0.000     .1402309    .4709875
+          3  |   .4725882   .0791842     5.97   0.000     .3173098    .6278665
+          4  |   .8072984   .0796118    10.14   0.000     .6511815    .9634152
+          5  |   1.024526   .0783421    13.08   0.000     .8708994    1.178154
+          6  |   1.337929   .1116342    11.98   0.000     1.119017    1.556841
+          7  |   1.212171   .1993842     6.08   0.000     .8211833    1.603159
+          8  |   .9355901   .3990371     2.34   0.019     .1530877    1.718093
+          9  |   2.838883   1.033005     2.75   0.006     .8131849    4.864582
+             |
+    1.cmedin |   .2029535   .0679884     2.99   0.003     .0696298    .3362772
+     1.work1 |   .3086353   .1474894     2.09   0.036     .0194119    .5978586
+     1.ortho |  -.1034721   .0592098    -1.75   0.081    -.2195812     .012637
+       _cons |   .2589903   .3884644     0.67   0.505    -.5027793     1.02076
+------------------------------------------------------------------------------
+
+. est store reg2
+
+. 
+. #delimit ;
+delimiter now ;
+. esttab  reg1 reg2 using "output/tables/first_model.tex", replace
+>         eqlabels(" " ) ///
+>         style(tab) order( ) mlabel(,none) ///
+>         cells(b(label(coef.) star fmt(%8.3f) ) se(label((z)) par fmt(%6.3f))) ///
+>         starlevels(* 0.10 ** 0.05 *** 0.01) ///  
+>         s(N r2, label( "N" "R^2") fmt(%9.0gc %6.3f) )  ///
+>         collabels(none) /// No column names within model
+>         delim("&")  /// Type of column delimiter 
+>         noobs /// Do not show number of observation used in model
+>         nomtitle ///
+>         label ///
+>         drop( _cons 1.econrk 0.cmedin 0.work1 0.marsta3 0.ortho) ///
+>         width(1.5\hsize) ///
+>         nogaps /// No gaps between rows
+>         booktabs /// Style
+>         nonote /// No notes
+>         varlabels(htself "Altura Reportada"
+>                 totexpr "Gastos Totales"
+>                 1.cmedin "Con Seguro Medico"
+>                 1.work1  "Dejó el Trabajo"
+>                 2.econrk "Escala 2"
+>                 3.econrk "Escala 3"
+>                 4.econrk "Escala 4"
+>                 5.econrk "Escala 5"
+>                 6.econrk "Escala 6"
+>                 7.econrk "Escala 7"
+>                 8.econrk "Escala 8"
+>                 9.econrk "Escala 9"
+>                 1.marsta3 "Divorciado"
+>                 1.ortho "Orthodoxo"
+>                 ) ///
+>         mgroups( "Modelo 1" "Modelo 2"  , pattern( 1 1) ) ///
+>         nonumbers ///
+>         refcat( 2.econrk "\Gape[0.25cm][0.25cm]{ \underline{ \textbf{ \textit{ Escal
+> a de Rango Económico } } } }" /// Subtitles
+>                         , nolabel) /// Subtitles
+>         prehead("\begin{table} \small \centering \protect \captionsetup{justificatio
+> n=centering} \caption{\label{tab:table1} Especificaciones del Modelo }" "\noindent\r
+> esizebox{\textwidth}{!}{ \begin{threeparttable}" "\begin{tabular}{lcc}" \toprule) //
+> /
+>         postfoot(\hline \end{tabular} ///
+>                 \begin{tablenotes} ///
+>                 \begin{footnotesize} ///
+>                 ${note} ///
+>                 \end{footnotesize} ///
+>                 "\end{tablenotes} \end{threeparttable} } \end{table}") ;
+(output written to output/tables/first_model.tex)
+
+. #delimit cr
+delimiter now cr
+. 
+. 
+. 
+. // scatter plot for htself, totexpr, econrk
+. #delimit ;
+delimiter now ;
+.         twoway (scatter satlif htself ), 
+>         ytitle("Satisfacción con la Vida") xtitle( "Altura" ) ;
+
+.         graph export "output/figures/Altura.png", replace ;
+(file output/figures/Altura.png written in PNG format)
+
+.         twoway (scatter satlif totexpr ), 
+>         ytitle("Satisfacción con la Vida") xtitle( "Gastos Totales" ) ;
+
+.         graph export "output/figures/gastos.png", replace ;
+(file output/figures/gastos.png written in PNG format)
+
+.         twoway (scatter satlif econrk ), 
+>         ytitle("Satisfacción con la Vida") xtitle( "Escala de Rango Económico" ) ;
+
+.         graph export "output/figures/rango_economica.png", replace ;
+(file output/figures/rango_economica.png written in PNG format)
+
+.         graph box satlif, over(cmedin, relabel( 1 "Sin Seguro" 2 "Con Seguro")) 
+>                 medtype(cline)  medline( lcolor("red")) 
+>                 box( 1, fcolor( "white") lcolor(black) ) ;
+
+.         graph export "output/figures/boxplot_cmedin.png", replace ;
+(file output/figures/boxplot_cmedin.png written in PNG format)
+
+.         graph box satlif, over(work1, relabel( 1 "No dejó el Trabajo" 2 "Dejó el Tra
+> bajo")) 
+>         medtype(cline)  medline( lcolor("red")) box( 1, fcolor( "white") lcolor(blac
+> k) ) ;
+
+.         graph export "output/figures/boxplot_work1.png", replace ;
+(file output/figures/boxplot_work1.png written in PNG format)
+
+. #delimit cr
+delimiter now cr
+. 
+. ********************************************************************************
+. *** PART 3: Log
+. *******************************************************************************/
+.  log close
+      name:  <unnamed>
+       log:  C:\Users\Anzony\Documents\GitHub\Applied_Econometrics\PS1\output/tp1-2022
+> -08-18_1.log
+  log type:  text
+ closed on:  18 Aug 2022, 01:11:12
+--------------------------------------------------------------------------------------
