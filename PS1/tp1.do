@@ -1,9 +1,9 @@
 clear all
 
-// global main "C:\Users\Hp Support\Videos\03 - Cursos\06 - Economía Aplicada\03 - Trabajos prácticos\TP1\PS1"
+// global main "C:\Users\Hp Support\Videos\03 - Cursos\06 - Economía Aplicada\03 - Trabajos prácticos\Applied_Econometrics\PS1"
 // global input "$main/input"
 // global output "$main/output"
-
+ 
 global main "C:\Users\geron\Documents\GitHub\Applied_Econometrics\PS1"
 global input "$main/input"
 global output "$main/output"
@@ -102,6 +102,8 @@ foreach var in `r(varlist)' {
 }
 mdesc `var_miss'
 
+// Las variables que muestran missing values superiores al 5% son: monage, obese, htself, totexpr y tincm_r.
+
 * Ejercicio 3: 
 
 // Identificamos si existen variables que presenten valores negativos para luego poder concluir acerca de la racionalidad de ello.
@@ -152,7 +154,7 @@ label variable waistc "Circunferencia de la cintura"
 label variable hipsiz "Circunferencia de la cadera"
 label variable totexpr "Gasto real"
 
-// Exportamos a word algunas estadisticas descriptivas utiles de las variables.
+// Exportamos a latex algunas estadisticas descriptivas utiles de las variables.
 estpost summarize sex monage satlif waistc hipsiz totexpr, listwise
 
 #delimit ;
