@@ -4,6 +4,9 @@ clear all
 // global input "$main/input"
 // global output "$main/output"
 
+global main "C:\Users\geron\Documents\GitHub\Applied_Econometrics\PS1"
+global input "$main/input"
+global output "$main/output"
 
 *--------------------------------------------------
 * 1 Strucuture of te log file name 
@@ -42,7 +45,7 @@ tab operat
 tab hattac
 tab geo
 
-// Replace comma with dot
+// Reemplazamos las comas por puntos, separando aquellas variables que unian erroneamente texto y valores numericos.
 split hipsiz, parse("") g(hipsiz)
 replace hipsiz = hipsiz3
 replace hipsiz =  subinstr( hipsiz, ",", ".", . )
@@ -55,7 +58,7 @@ drop totexpr1 totexpr2 totexpr3
 
 replace tincm_r =  subinstr( tincm_r, ",", ".", . )
 
-// Reemplazar characteres especificos
+// Reemplazamos los caracteres especificos en cada variable mediante un loop. Las observaciones presentadas en texto las volvimos numericas y aquellas variables que por sus caracteristicas eran binarias las pusimos en el formato 0-1.
 foreach x of varlist sex econrk obese powrnk resprk satlif wtchng evalhl operat hattac smokes tincm_r hipsiz totexpr geo{
 	replace `x' = "1" if (`x'== "one" )
 	replace `x' = "2" if (`x'== "two" )
@@ -71,20 +74,21 @@ foreach x of varlist sex econrk obese powrnk resprk satlif wtchng evalhl operat 
 	replace `x' = "1" if (`x'== "This person is obese" )
 }
 
-// Convertir variables string a nuemerico
+// Convertimos aquellas variables que se encontraban en formato string a formato numerico via el comando destring.
 ds, has(type string)
 foreach var in `r(varlist)' {
     destring `var',  replace
 }
 
-// Checkeamos que no haya variables string
+// Finalmente, luego del paso anterior chequeamos que efectivamente no haya quedado alguna variable en formato string.
 ds, has(type string)
 
-// Checkeamos unicidad de las observaciones
+// Chequeamos unicidad de las observaciones, es decir, que no existan valores repetidos.
 isid id
 
 
 *Ejercicio 2: 
+// Via el comando mdesc visto en clase observamos que variables presentaban missing values y, a partir del uso de un loop, mostramos aquellas que cumplen con el criterio establecido en el tp1, de tener missing values que representen el 5% de los datos o mas.
 
 // ssc install mdesc // instalamos 
 ds, has(type numeric)
@@ -100,7 +104,7 @@ mdesc `var_miss'
 
 * Ejercicio 3: 
 
-// Identificando valores negativos
+// Identificamos si existen variables que presenten valores negativos para luego poder concluir acerca de la racionalidad de ello.
 ds, has(type numeric)
 local varegative 
 foreach var in `r(varlist)' {
@@ -131,7 +135,7 @@ que por lo general suelen representar valores missing (eg. 99999).
 
 
 * Ejercicio 4: 
-
+// utilizamos el comando order visto en clase para ordenar la base de datos de acuerdo al criterio solicitado. Ademas con gsort ordenamos los datos de acuerdo al valor de la variable totexpr, desde el mayor hasta el menor.
 order id site sex
 gsort -totexpr
 
@@ -140,7 +144,7 @@ gsort -totexpr
 foreach var of varlist sex monage satlif waistc hipsiz totexpr {
 	summarize `var'
 }
-
+//Aqui basicamente le dimos una etiqueta util a cada una de las variables, para que luego sea mas facil comprender que representa cada una.
 label variable sex "Sexo"
 label variable monage "Edad en meses"
 label variable satlif "Satisfacción con la vida"
@@ -148,7 +152,7 @@ label variable waistc "Circunferencia de la cintura"
 label variable hipsiz "Circunferencia de la cadera"
 label variable totexpr "Gasto real"
 
-// exportando a word
+// Exportamos a word algunas estadisticas descriptivas utiles de las variables.
 estpost summarize sex monage satlif waistc hipsiz totexpr, listwise
 
 #delimit ;
@@ -158,7 +162,7 @@ estpost summarize sex monage satlif waistc hipsiz totexpr, listwise
 #delimit cr
 
 * Ejercicio 6: 
-
+// con el comando kdensity visto en clase y con el uso del twoway, mostramos en un mismo grafico la distribucion de la circunferencia de la cadera, discriminando por sexo. En ella se puede ver que, a pesar de que ambas distribuciones estan centradas aproximadamente en un mismo valor, la distribucion para los hombres presenta una menor dispersion.
 #delimit ;
 	twoway (kdensity hipsiz if sex==1) ||	
 	(kdensity hipsiz if sex==0), legend( label(1 "Hombre") label(2 "Mujer") )
@@ -166,7 +170,7 @@ estpost summarize sex monage satlif waistc hipsiz totexpr, listwise
 	ytitle("Densidad") xtitle( "" ) ;
 	graph export "output/figures/hipsiz_histogram_menvswomen.png", replace ;
 #delimit cr
-
+// A partir de aca usamos el comando ttest para realizar una diferencia de medias y probar las hipotesis relevantes. Luego exportamos la tabla, tratando de cambiar el formato para que se vea de una forma mas intuitiva.
 ttest hipsiz, by(sex)
 eststo test1: estpost ttest hipsiz, by( sex )
 
@@ -205,7 +209,8 @@ eststo test1: estpost ttest hipsiz, by( sex )
 #delimit cr
 
 * Ejercicio 7: 
-
+//Finalmente, elegimos variables que consideramos relevantes para hacer un analisis de regresion y, planteamos dos casos, uno con pocos controles y otro con mayor cantidad de ellos.
+//Tambien exportamos la tabla con los resultados de la regresion, modificando su formato para que la presentacion sea mucho mas clara.
 reg satlif  htself totexpr i.econrk i.cmedin i.work1
 est store reg1
 reg satlif  htself totexpr i.marsta3 i.econrk i.cmedin i.work1 i.ortho
@@ -258,7 +263,7 @@ esttab 	reg1 reg2 using "output/tables/first_model.tex", replace
 
 
 
-// scatter plot for htself, totexpr, econrk
+// Por ultimo, presentamos un diagrama de dispersion del regresando contra algunos regresores, para de esa manera poder observar de que manera se relacionan entre si.
 #delimit ;
 	twoway (scatter satlif htself ), 
 	ytitle("Satisfacción con la Vida") xtitle( "Altura" ) ;
