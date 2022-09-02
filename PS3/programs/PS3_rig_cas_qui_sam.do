@@ -1,5 +1,5 @@
 *ECONOMIA APLICADA PROBLEM SET 3
-*QUISPE, CASCIANO, SAMBRANA, RIGIROZZI
+*QUISPE, CASIANO, SAMBRANA, RIGIROZZI
 
 
 ************PUNTO 1***************
@@ -22,7 +22,7 @@ gen wage=3*intelligence+a+2*b+u
 
 
 reg wage education intelligence a b
-
+eststo OLS1
 
 
 **Definimos un nuevo tamanio muestral mayor, de 1000
@@ -41,7 +41,11 @@ gen u=int(invnormal(uniform())*1+7)
 gen wage=3*intelligence+a+2*b+u
 
 reg wage education intelligence a b
+eststo OLS2 
 *Lo que se observa con este mayor tamanio muestral es que se da una reduccion en el valor de los correspondientes errores estandar. Adicionalmente, vemos que se estima mejor los coeficientes, puntualmente el de educacion se aproxima aun mas a su verdadero valor, 0. 
+
+esttab OLS1 OLS2 using "ejercicio1.tex",  replace se label
+
 
 ********************************************************************************
 ************PUNTO 2***************
@@ -65,9 +69,9 @@ gen wage=3*intelligence+a+2*b+u
 
 
 reg wage education intelligence a b
-
+eststo OLS3
 *Luego proponemos la modificacion en la varianza del termino de error
-clear all
+clear 
 
 set obs 100
 set seed 1234
@@ -82,8 +86,10 @@ gen u=int(invnormal(uniform())*30+7)
 gen wage=3*intelligence+a+2*b+u
 
 reg wage education intelligence a b
-
+eststo OLS4
 *Con este aumento en la varianza del termino de error, vemos claramente que los valores de los errores estandar aumentan de forma significativa. Otra consecuencia es que se estima los coeficientes de manera muy sesgada con respecto a su verdadero valor.
+
+esttab OLS3 OLS4 using "ejercicio2.tex",  replace se label
 
 ****************************************************************************
 ************PUNTO 3*******************
@@ -108,7 +114,7 @@ gen wage=3*intelligence+a+2*b+u
 
 
 reg wage education intelligence a b
-
+eststo OLS5
 *************************************
 *CON VARIANZA X=50
 
@@ -130,8 +136,11 @@ gen wage=3*intelligence+a+2*b+u
 
 
 reg wage education intelligence a b
-
+eststo OLS6
 *Vemos que los errores estandar del regresor intelligence se reducen significativamente al contar con mayor variabilidad. Esto se explica, en parte porque al tener mayor variabilidad en el regresor,se puede medir su efecto sobre y de una manera mas precisa.
+
+esttab OLS5 OLS6 using "ejercicio3.tex",  replace se label
+
 *******************************************************************************
 ******PUNTO 4**********
 clear
@@ -203,7 +212,8 @@ reg wage education intelligence a b
 predict residuals, res
 tabstat residuals, s (sum)
 
-corr residuals intelligence a b education
+// instalar corrtex con el siguiente comando: ssc install corrtex
+corrtex residuals intelligence a b education, file(ejercicio5) 
 *Vemos la ortogonalidad via la correlacion de los errores con cada uno de los regresores. Efectivamente, al ser 0 para cada uno, se da ortogonalidad.
 
 *******************************************************************************
@@ -230,7 +240,7 @@ predict y_hat_1
 
 reg wage education intelligence a b
 predict y_hat_2 
-corr y_hat_1 y_hat_2  
+corrtex y_hat_1 y_hat_2, file(ejercicio6) 
 *Como la correlacion entre los y estimados es perfecta, la introduccion de un regresor altamente correlacionado con otro, no produce problemas al momento de estimar y.
 
 
@@ -255,7 +265,7 @@ gen wage=3*intelligence+a+2*b+u
 
 * Include education that is not in the Data Generating Process and it is highly correlated with intelligence. Note that coefficients and SE for a and b do not change, but the SE for the coefficient of intelligence changes, and a lot.
 reg wage education intelligence a b
-
+eststo OLS7
 *planteamos el modelo en el que tenemos un regresor, inteligencia, con un error de medicion no aleatorio.
 
 clear
@@ -275,7 +285,7 @@ gen wage=3*intelligence+a+2*b+u
 
 
 reg wage education intelligencemed a b
-
+eststo OLS8
 *Vemos un sesgo extremadamente grande para la variable inteligencia, que se contagia a la variable educacion, que tambien esta exageradamente sesgada, al estar altamente correlacionada.
 
 
@@ -299,8 +309,10 @@ gen wage=3*intelligence+a+2*b+u
 
 
 reg wage education intelligencemed a b
+eststo OLS9
 *Vemos un sesgo extremadamente grande para la variable inteligencia(aunque mayor que con un error no aleatorio), que se contagia a la variable educacion, que tambien esta exageradamente sesgada, al estar altamente correlacionada.
 
+esttab OLS7 OLS8 OLS9 using "ejercicio7.tex",  replace se label
 
 ********************************************************************************
 ******PUNTO 8**********
@@ -321,7 +333,7 @@ gen wage=3*intelligence+a+2*b+u
 
 
 reg wage education intelligence a b
-
+eststo OLS10
 
 *suest ols11 ols12, robust
 predict residuals
@@ -350,6 +362,7 @@ gen wagemed=3*intelligence+a+2*b+u + 8
 
 
 reg wagemed education intelligence a b
+eststo OLS11
 
 predict residuals
 tabstat residuals,s(v mean)
@@ -374,13 +387,13 @@ gen wagemed=3*intelligence+a+2*b+u + int(uniform()*4+100)
 
 
 reg wagemed education intelligence a b
-
+eststo OLS12
 predict residuals
 tabstat residuals,s(v mean)
 
 *Notar el aumento en la media de los residuos.
 
-
+esttab OLS10 OLS11 OLS12 using "ejercicio8.tex",  replace se label
 
 
 
