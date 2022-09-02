@@ -157,7 +157,7 @@ tabstat residuals, s (sum)
 
 ****veamos la suma de residuos con mayor variabilidad del regresor intelligence
 
-clear all
+clear
 
 set obs 100
 set seed 1234
